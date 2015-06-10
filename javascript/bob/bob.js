@@ -5,15 +5,40 @@
 
 var Bob = function() {};
 
-Bob.prototype.hey = function(input) {
-  if(input.charAt(input.length-1) == '!'){
-    if(input == input.toUpperCase()){
-      return 'Whoa, chill out!'
+var isQuestion = function(input) {
+  if (isYell(input)){
+    return false
+  }
+  return input.charAt(input.length-1) == '?';
+}
+
+var isBlank = function(input) {
+  if(input == ''){
+    return true;
+  }else{
+    for (var i = 0; i < input.length-1; i++) {
+      if(input[i] != ' '){
+        return false;
+      }
     }
-  }else if(input.charAt(input.length-1) == '?'){
-    return 'Sure.'
+    return true;
+  }
+}
+
+var isYell = function(input) {
+  return input == input.toUpperCase() && input != input.toLowerCase();
+}
+
+Bob.prototype.hey = function(input) {
+  if (isQuestion(input)){
+    return 'Sure.';
+  }if (isBlank(input)) {
+    return 'Fine. Be that way!';
+  }
+  if (isYell(input)){
+    return 'Whoa, chill out!';
   }else {
-    return 'Whatever.'
+    return 'Whatever.';
   }
 };
 
